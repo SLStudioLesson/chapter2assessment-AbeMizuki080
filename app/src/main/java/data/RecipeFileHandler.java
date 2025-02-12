@@ -2,12 +2,17 @@ package data;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
 
 public class RecipeFileHandler {
-    private String filePath;
+    public String filePath= "src/main/resources/recipes.txt";  
 
     public RecipeFileHandler() {
-        filePath = "app/src/main/resources/recipes.txt";
+        
     }
 
     public RecipeFileHandler(String filePath) {
@@ -22,12 +27,20 @@ public class RecipeFileHandler {
      * @return レシピデータ
      */
     public ArrayList<String> readRecipes() {
-        // try {
+        ArrayList<String> recipes = new ArrayList<>();
 
-        // } catch (IOException e) {
-        //     System.out.println("Error reading file:" + e.getMessage());
-        // }
-        return null;
+        try 
+            (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/recipes.txt"))){
+                String line;
+                ArrayList<String> lines = new ArrayList<>();
+                for(int i = 0; i<lines.size(); i++){
+                    String recipe = lines.get(i);
+                    lines.add(recipe);
+                }
+        } catch (IOException ex) {
+            System.out.println("Error reading file: " + ex.getMessage());
+        }
+        return recipes;
     }
 
     /**
@@ -40,6 +53,18 @@ public class RecipeFileHandler {
      */
      // 
     public void addRecipe(String recipeName, String ingredients) {
+
+        try 
+            (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))){
+                writer.write(recipeName + "," + ingredients);
+                writer.newLine();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
+
         // try {
 
         // } catch (IOException e) {
