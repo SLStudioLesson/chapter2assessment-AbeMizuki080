@@ -6,10 +6,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.InputStreamReader;
 
 public class RecipeFileHandler {
-    public String filePath= "src/main/resources/recipes.txt";  
+    public String filePath= "App/src/main/resources/recipes.txt";  
 
     public RecipeFileHandler() {
         
@@ -30,12 +29,10 @@ public class RecipeFileHandler {
         ArrayList<String> recipes = new ArrayList<>();
 
         try 
-            (BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/recipes.txt"))){
+            (BufferedReader reader = new BufferedReader(new FileReader(filePath))){
                 String line;
-                ArrayList<String> lines = new ArrayList<>();
-                for(int i = 0; i<lines.size(); i++){
-                    String recipe = lines.get(i);
-                    lines.add(recipe);
+                while ((line = reader.readLine()) != null) {
+                    recipes.add(line);
                 }
         } catch (IOException ex) {
             System.out.println("Error reading file: " + ex.getMessage());
@@ -55,7 +52,7 @@ public class RecipeFileHandler {
     public void addRecipe(String recipeName, String ingredients) {
 
         try 
-            (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))){
+            (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath,true))){
                 writer.write(recipeName + "," + ingredients);
                 writer.newLine();
 
